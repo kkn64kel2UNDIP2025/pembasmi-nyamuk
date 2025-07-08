@@ -1,0 +1,22 @@
+{
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.11",
+    "flowbite": "^3.1.2",
+    "preline": "^3.1.0",
+    "tailwindcss": "^4.1.11"
+  },
+  "name": "pemantauan-potensi-nyamuk",
+  "version": "1.0.0",
+  "description": "CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure. More information can be found at the [official site](https://codeigniter.com).",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "dev": "npx @tailwindcss/cli -i ./src/input.css -o ./public/assets/css/style.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}

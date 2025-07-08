@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@import "flowbite/src/themes/default";
+@import "../node_modules/preline/variants.css";
+
+@import "./tailwind/components/simplebar.css";
+@import "./tailwind/utilities/header.css";
+@import "./tailwind/utilities/reboot.css";
+@import "./tailwind/utilities/sidebar.css";
+@import "./tailwind/tailwind.css";
+
+.bg-surface{
+    --tw-bg-opacity:1;
+background-color:rgb(240 245 249 / var(--tw-bg-opacity,1))
+}
