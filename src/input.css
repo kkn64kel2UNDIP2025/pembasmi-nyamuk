@@ -2,6 +2,7 @@
 
 @import "flowbite/src/themes/default";
 @import "../node_modules/preline/variants.css";
+@import "./leaflet/leaflet.css";
 
 @import "./tailwind/components/simplebar.css";
 @import "./tailwind/utilities/header.css";
