@@ -8,8 +8,8 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="text-gray-900 text-lg font-semibold inline-block">Pemantauan Potensi Perkembangan Nyamuk</h5>
-                        <div id="map" class="h-screen"></div>
+                        <h5 class="text-gray-900 text-lg font-semibold inline-block mb-5">Pemantauan Potensi Perkembangan Nyamuk</h5>
+                        <div id="map" class="h-100 z-5"></div>
                     </div>
                 </div>
             </div>
@@ -18,9 +18,12 @@
 </main>
 
 <script src="<?= base_url('assets/js/leaflet.js') ?>"></script>
+
 <script>
     // Map Initialization
     var map = L.map('map');
+    map.setView([-6.96448528, 110.44894667], 20);
+
 
     // OSN Layer
     var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -66,9 +69,9 @@
 
     // Minta lokasi pengguna
     map.locate({
-    setView: true,
-    maxZoom: 20,
-    enableHighAccuracy: true
+        setView: false,
+        maxZoom: 20,
+        enableHighAccuracy: true
     });
 
     // Jika lokasi berhasil didapat

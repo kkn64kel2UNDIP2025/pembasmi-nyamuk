@@ -3,9 +3,6 @@
 <script src="<?= base_url('assets/js/sidebarmenu.js') ?>"></script>
 <script src="<?= base_url('assets/js/preline.js') ?>"></script>
 
-<!-- solar icons -->
-<script src="<?= base_url('assets/js/dashboard.js') ?>"></script>
-
 </body>
 
 </html>

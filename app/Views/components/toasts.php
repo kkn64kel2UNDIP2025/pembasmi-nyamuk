@@ -18,7 +18,7 @@
 
 <script>
     // Toast ketika berhasil atau gagal
-    setTimeout(() => {
-        document.getElementById('toast-success').classList.add('hidden');
-    }, 2000);
+    // setTimeout(() => {
+    //     document.getElementById('toast-success').classList.add('hidden');
+    // }, 2000);
 </script>

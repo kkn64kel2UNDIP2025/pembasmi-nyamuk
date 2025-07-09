@@ -30,7 +30,7 @@ class Database extends Config
         'username'     => 'postgres.nbqxohqnlurhpzlqybmg',
         'password'     => 'Wonderfulkal1g@we',
         'database'     => 'postgres',
-        'DBDriver'     => 'postgre',
+        'DBDriver'     => 'Postgre',
         'DBPrefix'     => '',
         'pConnect'     => false,
         'DBDebug'      => true,
@@ -49,6 +49,7 @@ class Database extends Config
             'datetime' => 'Y-m-d H:i:s',
             'time'     => 'H:i:s',
         ],
+        'pool_mode'     => 'transaction'
     ];
 
     //    /**

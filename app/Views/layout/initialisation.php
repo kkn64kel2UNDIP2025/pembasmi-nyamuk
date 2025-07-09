@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
     <!-- Core Css -->
     <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>" />
+    <!-- Leflet -->
+    <script src="<?= base_url('assets/js/leaflet.js') ?>"></script>
+
     <title><?= $title ?></title>
 </head>
 

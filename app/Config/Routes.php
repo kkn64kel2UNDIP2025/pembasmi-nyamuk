@@ -7,3 +7,4 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'MapController::index');
 $routes->get('/pelaporan', 'ReportController::index');
+$routes->post('/pelaporan/laporan-baru', 'ReportController::LaporanBaru');

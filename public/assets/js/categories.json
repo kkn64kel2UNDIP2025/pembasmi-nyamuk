@@ -1,0 +1,50 @@
+[
+  {
+    "id": "1",
+    "category_name": "Wadah",
+    "level": "3",
+    "color": "#FF5733"
+  },
+  {
+    "id": "2",
+    "category_name": "Tempat Penampungan Air",
+    "level": "4",
+    "color": "#C70039"
+  },
+  {
+    "id": "3",
+    "category_name": "Saluran Air Tersumbat",
+    "level": "5",
+    "color": "#900C3F"
+  },
+  {
+    "id": "4",
+    "category_name": "Habitat Tanaman",
+    "level": "3",
+    "color": "#33FF57"
+  },
+  {
+    "id": "5",
+    "category_name": "Sumur Terbuka",
+    "level": "5",
+    "color": "#A93226"
+  },
+  {
+    "id": "6",
+    "category_name": "Kubangan Air",
+    "level": "3",
+    "color": "#2E86C1"
+  },
+  {
+    "id": "7",
+    "category_name": "Lubang Pohon",
+    "level": "2",
+    "color": "#138D75"
+  },
+  {
+    "id": "8",
+    "category_name": "Lainnya",
+    "level": null,
+    "color": "#FFFFFF"
+  }
+]

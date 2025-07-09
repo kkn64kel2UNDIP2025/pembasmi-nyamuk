@@ -7,11 +7,29 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class ReportController extends BaseController
 {      
+    protected $categoriesModel;
+    protected $locationsModel;
+
+
+    public function __construct()
+    {
+        $this->categoriesModel = new \App\Models\CategoryModel;
+        $this->locationsModel = new \App\Models\LocationModel;
+    }
+    
     public function index()
     {
-        $data['title'] = 'Pelaporan Potensi';
+        $data = [
+            'title' => 'Pelaporan Potensi',
+            'categories' => $this->categoriesModel->findAll()
+        ];
 
         return view('pages/report', $data);
+    }
+
+    public function LaporanBaru()
+    {
+        dd($this->request->getVar());
     }
 
     public function uploadImage()
