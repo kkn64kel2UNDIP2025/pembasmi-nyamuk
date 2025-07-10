@@ -67,6 +67,7 @@
         </div>
     </div>
     </div>
+    <?= $this->include('layout/footer') ?>
     </div>
 </main>
 

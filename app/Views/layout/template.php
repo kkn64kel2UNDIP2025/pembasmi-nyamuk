@@ -15,4 +15,4 @@
 	<!--end of project-->
 </main>
 <?= $this->include('components/toasts') ?>
-<?= $this->include('layout/footer') ?>
+<?= $this->include('layout/bottom') ?>
