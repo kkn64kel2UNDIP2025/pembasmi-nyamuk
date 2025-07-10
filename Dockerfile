@@ -9,23 +9,18 @@ RUN apt-get update && apt-get install -y \
     zip \
     && docker-php-ext-install pdo pdo_pgsql intl
 
-# Aktifkan mod_rewrite dan atur ServerName
 RUN a2enmod rewrite && echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
-# ✅ Ubah DocumentRoot ke folder 'public'
+# Set document root ke public/
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 
-# ✅ Ubah konfigurasi Apache agar menggunakan public/
+# Ubah config Apache agar pakai folder public
 RUN sed -ri -e 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf \
-    && sed -ri -e 's!/var/www/!/var/www/html/public!g' /etc/apache2/apache2.conf
+    && sed -ri -e 's!/var/www/!/var/www/html/public!g' /etc/apache2/apache2.conf \
+    && echo "DocumentRoot /var/www/html/public" >> /etc/apache2/apache2.conf
 
-# ✅ Salin project ke folder yang sesuai
 COPY . /var/www/html/
-
-# ✅ Atur permission
 RUN chown -R www-data:www-data /var/www/html
-
-# ✅ Jangan pakai WORKDIR — Railway akan jalankan dari root Apache
-# WORKDIR /var/www/public ← HAPUS
+RUN chmod -R 775 /var/www/html/writable
 
 EXPOSE 80
