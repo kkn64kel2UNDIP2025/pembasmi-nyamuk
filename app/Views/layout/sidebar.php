@@ -11,7 +11,7 @@
                 alt="Logo Anti Nyamuk" />
             <div class="font-bold text-2xl">
                 <span class="block">Pembasmi</span>
-                <span class="text-red-700">Nyamuk</span>
+                <span class="text-blue-900">Nyamuk</span>
             </div>
         </a>
 

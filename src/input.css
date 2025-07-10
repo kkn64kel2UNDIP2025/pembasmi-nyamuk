@@ -47,3 +47,7 @@ leaflet-control-layers {
 .leaflet-popup-content-wrapper {
     border-radius: 0.5rem;
 }
+
+input, select , textarea {
+	@apply shadow-sm
+}

@@ -79,6 +79,7 @@
 </main>
 
 <script>
+
     let categories = [];
 
     // Helper functions for validation
@@ -241,7 +242,7 @@
 
     // Marker
     const icon = L.icon({
-        iconUrl: '<?= base_url('assets/icons/green-marker.png') ?>',
+        iconUrl: '<?= base_url('assets/icons/blue-marker.png') ?>',
         iconSize: [30, 30],
         iconAnchor: [15, 30],
     });
@@ -255,6 +256,30 @@
     setLocation.bindPopup("Geser / klik untuk memindahkan lokasi", {
         offset: L.point(0, -15)
     }).openPopup();
+
+    // Locate user
+    map.locate({
+      setView: false,
+      maxZoom: 18,
+      enableHighAccuracy: true,
+      timeout: 10000
+    });
+
+    map.on('locationfound', function (e) {
+      const accuracy = e.accuracy;
+      const latlng = e.latlng;
+
+      if (accuracy <= 25) {
+        // Tambahkan lingkaran biru
+        L.circle(latlng, {
+          radius: accuracy,
+          color: 'blue',
+          fillColor: 'blue',
+          fillOpacity: 0.3
+        }).addTo(map);
+
+      }
+    });
 
     // Function to update coordinates
     function updateCoordinates(lat, lng) {

@@ -12,7 +12,7 @@ class LocationModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['name', 'phone', 'latitude', 'longitude', 'category_id', 'level', 'description', 'evidence_image'];
+    protected $allowedFields    = ['name', 'phone', 'latitude', 'longitude', 'category_id', 'level', 'description', 'evidence_image', 'status', 'resolve_at'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;

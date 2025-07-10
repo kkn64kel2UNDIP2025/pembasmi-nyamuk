@@ -21,4 +21,27 @@ class MapController extends BaseController
 
         return view('pages/map', $data);
     }
+
+    public function UpdateStatus()
+    {
+        $id = $this->request->getVar('location_id');
+        $status = $this->request->getVar('status');
+
+        if ($status === 'laporan palsu') {
+            $this->locationsModel->update($id, [
+                'status' => $status
+            ]);
+            session()->setFlashdata('success', 'Laporan berhasil ditandai sebagai laporan palsu.');
+        } else if ($status === 'terselesaikan') {
+            $this->locationsModel->update($id, [
+                'status' => $status,
+                'resolve_at' => date('Y-m-d H:i:s')
+            ]);
+            session()->setFlashdata('success', 'Laporan berhasil ditandai sebagai terselesaikan.');
+        } else {
+            session()->setFlashdata('error', 'Status tidak valid.');
+        }
+
+        return redirect()->back();
+    }
 }
