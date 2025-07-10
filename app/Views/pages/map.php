@@ -97,8 +97,6 @@
     </div>
 </div>
 
-
-<script src="<?= base_url('assets/js/leaflet.js') ?>"></script>
 <script>
     const locations = <?= json_encode($locations) ?>;
 
@@ -269,13 +267,10 @@
         });
     });
 
-    // Add all active and resolved layers to map by default
+    // Add all active layers to map by default
     [1, 2, 3, 4, 5].forEach(level => {
         if (layerGroups[level]['aktif'].getLayers().length > 0) {
             layerGroups[level]['aktif'].addTo(map);
-        }
-        if (layerGroups[level]['terselesaikan'].getLayers().length > 0) {
-            layerGroups[level]['terselesaikan'].addTo(map);
         }
     });
 

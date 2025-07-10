@@ -16,7 +16,7 @@ class MapController extends BaseController
     
     public function index()
     {
-        $data['title'] = 'Peta Pemantauan';
+        $data['title'] = 'Peta Pemantauan | Pembasmi Nyamuk';
         $data['locations'] = $this->locationsModel->getLocationsWithCategory();
 
         return view('pages/map', $data);

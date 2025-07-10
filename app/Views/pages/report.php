@@ -1,7 +1,6 @@
 <?php $this->extend('layout/template') ?>
 <?php $this->section('content') ?>
 
-
 <main class="content">
     <div class="container-fluid p-0">
         <div class="row shadow-sm">

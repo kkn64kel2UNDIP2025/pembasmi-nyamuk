@@ -5,7 +5,7 @@
     <!-- ---------------------------------- -->
     <div class="p-4 mt-5">
 
-        <a href="./" class="text-nowrap flex justify-center gap-4 items-center">
+        <a class="text-nowrap flex justify-center gap-4 items-center">
             <img width="70" height="70"
                 src="<?= base_url('Ikon-Anti-Nyamuk.png') ?>"
                 alt="Logo Anti Nyamuk" />
