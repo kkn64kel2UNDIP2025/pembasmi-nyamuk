@@ -29,24 +29,35 @@ class ReportController extends BaseController
 
     public function LaporanBaru()
     {
-        dd($this->request->getVar());
+        $resultUpload = $this->uploadImage();
+
+        $data = [
+            'name' => $this->request->getVar('name'),
+            'phone' => $this->request->getVar('phone'),
+            'latitude' => $this->request->getVar('latitude'),
+            'longitude' => $this->request->getVar('longitude'),
+            'category_id' => $this->request->getVar('category'),
+            'level' => $this->request->getVar('level'),
+            'description' => $this->request->getVar('description'),
+            'evidence_image' => $resultUpload['fileName'],
+            'resolve_at' => null,
+        ];
+
+        $this->locationsModel->insert($data);
+        session()->setFlashdata($resultUpload['status'], $resultUpload['message']);
+        return redirect()->back();
     }
 
-    public function uploadImage()
+    private function uploadImage()
     {
-        $file = $this->request->getFile('image');
+        $file = $this->request->getFile('evidence_image');
 
         $fileContent = file_get_contents($file->getTempName());
-        $fileName = $file->getName();
-        
-        // d($file->getTempName());
-        // d($fileContent);
-        // d($fileName);
-        // dd($file->getMimeType());
+        $fileName = $file->getRandomName();
 
         $bucket = 'pelaporan';
-        $projectUrl = 'https://gtlzsymniqibbspxbfrb.supabase.co';
-        $apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0bHpzeW1uaXFpYmJzcHhiZnJiIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1MTM0MDY1MiwiZXhwIjoyMDY2OTE2NjUyfQ.8RrjDO5SrK05atiudwxXQliRB926SMidauC-1g0EbSQ';
+        $projectUrl = 'https://nbqxohqnlurhpzlqybmg.supabase.co';
+        $apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5icXhvaHFubHVyaHB6bHF5Ym1nIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1MjAxMDg2MSwiZXhwIjoyMDY3NTg2ODYxfQ.cK6zlfzpc7pDRqSRfLFie2N1zGeCC9-62m2_PqG8y2E';
 
         // PUT Requests
         $client = \Config\Services::curlrequest();
@@ -60,10 +71,19 @@ class ReportController extends BaseController
         ]);
 
         if($response->getStatusCode() === 200 || $response->getStatusCode() === 201) {
-            d("Berhasil upload ke Supabase: $fileName");
+            $message = 'Laporan berhasil dikirim!';
+            $status = 'success';
         } else {
-            d("Status: " . $response->getStatusCode());
-            d($response->getBody());
+            $message = 'Gagal mengunggah gambar. Silakan coba lagi.';
+            $status = 'error';
         }
+
+        return [
+            'fileName' => $fileName,
+            'status' => $status,
+            'message' => $message
+        ];
     }
+
+
 }

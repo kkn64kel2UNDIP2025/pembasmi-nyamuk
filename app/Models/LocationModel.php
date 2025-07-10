@@ -12,7 +12,7 @@ class LocationModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = ['name', 'phone', 'latitude', 'longitude', 'category_id', 'level', 'description', 'evidence_image'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -23,7 +23,7 @@ class LocationModel extends Model
     // Dates
     protected $useTimestamps = false;
     protected $dateFormat    = 'datetime';
-    protected $createdField  = 'created_at';
+    protected $createdField  = 'reported_at';
     protected $updatedField  = 'updated_at';
     protected $deletedField  = 'deleted_at';
 
@@ -43,4 +43,11 @@ class LocationModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function getLocationsWithCategory()
+    {
+        return $this->select('locations.*, category_name')
+                    ->join('categories', 'categories.id = locations.category_id')
+                    ->findAll();
+    }
 }
