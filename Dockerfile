@@ -1,23 +1,25 @@
 FROM php:8.2-apache
 
-# Install dependensi sistem & ekstensi PHP yang dibutuhkan
+# Install dependensi sistem untuk ekstensi yang dibutuhkan
 RUN apt-get update && apt-get install -y \
     libpq-dev \
+    libicu-dev \
     unzip \
     curl \
     git \
-    && docker-php-ext-install pdo pdo_pgsql
+    zip \
+    && docker-php-ext-install pdo pdo_pgsql intl
 
-# Aktifkan mod_rewrite Apache
+# Aktifkan mod_rewrite Apache untuk CodeIgniter
 RUN a2enmod rewrite
 
-# Salin semua file proyek ke direktori web server
+# Salin semua file project ke dalam kontainer
 COPY . /var/www/html/
 
 # Atur permission
 RUN chown -R www-data:www-data /var/www/html
 
-# Konfigurasi Apache agar .htaccess CI4 aktif
+# Aktifkan .htaccess agar routing CI4 jalan
 RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
 
 # Set working directory
