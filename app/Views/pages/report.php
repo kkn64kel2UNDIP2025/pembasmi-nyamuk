@@ -62,7 +62,7 @@
                                         type="file"
                                         accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
                                         >
-                                    <p class="mt-1 text-sm text-gray-500" id="file_input_help">Hanya file gambar (PNG, JPG, JPEG, GIF, WebP). File di atas 1MB akan dikompress otomatis. File besar akan dikompress dengan kualitas yang disesuaikan.</p>
+                                    <p class="mt-1 text-sm text-gray-500" id="file_input_help">Hanya file gambar (PNG, JPG, JPEG, GIF, WebP). File di atas 1MB akan dikompress otomatis.</p>
                                     <p id="file_input_error" class="hidden mt-2 text-xs text-red-600"></p>
                                 </div>
                             </div>
