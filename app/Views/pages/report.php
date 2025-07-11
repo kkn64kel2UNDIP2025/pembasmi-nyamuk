@@ -61,6 +61,7 @@
                                         name="evidence_image"
                                         type="file"
                                         accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
+                                        capture="camera"
                                         >
                                     <p class="mt-1 text-sm text-gray-500" id="file_input_help">Hanya file gambar (PNG, JPG, JPEG, GIF, WebP). Maksimal 5MB.</p>
                                     <p id="file_input_error" class="hidden mt-2 text-xs text-red-600"></p>
