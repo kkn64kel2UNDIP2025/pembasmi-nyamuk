@@ -26,7 +26,7 @@
                                         <option value="">-- Pilih Kategori --</option>
                                         <?php foreach ($categories as $category) : ?>
                                             <option value="<?= $category['id'] ?>"><?= $category['category_name'] ?></option>
-                                        <?php endforeach ?>
+                                    <?php endforeach ?>
                                     </select>
                                     <p id="category_error" class="hidden mt-2 text-xs text-red-600">Kategori harus dipilih</p>
                                 </div>
@@ -62,7 +62,7 @@
                                         type="file"
                                         accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
                                         >
-                                    <p class="mt-1 text-sm text-gray-500" id="file_input_help">Hanya file gambar (PNG, JPG, JPEG, GIF, WebP). Maksimal 5MB.</p>
+                                    <p class="mt-1 text-sm text-gray-500" id="file_input_help">Hanya file gambar (PNG, JPG, JPEG, GIF, WebP). File di atas 1MB akan dikompress otomatis. File besar akan dikompress dengan kualitas yang disesuaikan.</p>
                                     <p id="file_input_error" class="hidden mt-2 text-xs text-red-600"></p>
                                 </div>
                             </div>
@@ -193,18 +193,57 @@
         }
     });
 
-    // File upload validation
-    document.getElementById('file_input').addEventListener('change', function(e) {
+    // Image compression function with dynamic quality
+    function compressImage(file, maxWidth = 1920, quality = 0.8) {
+        return new Promise((resolve) => {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+            
+            img.onload = function() {
+                // Calculate new dimensions
+                let { width, height } = img;
+                
+                // More aggressive resize for very large files
+                if (file.size > 10 * 1024 * 1024) { // > 10MB
+                    maxWidth = 1280;
+                } else if (file.size > 5 * 1024 * 1024) { // > 5MB
+                    maxWidth = 1600;
+                }
+                
+                if (width > maxWidth) {
+                    height = (height * maxWidth) / width;
+                    width = maxWidth;
+                }
+                
+                canvas.width = width;
+                canvas.height = height;
+                
+                // Draw and compress
+                ctx.drawImage(img, 0, 0, width, height);
+                
+                canvas.toBlob(resolve, 'image/jpeg', quality);
+            };
+            
+            img.src = URL.createObjectURL(file);
+        });
+    }
+
+    // File upload validation and compression
+    document.getElementById('file_input').addEventListener('change', async function(e) {
         const file = e.target.files[0];
         const fileInput = e.target;
+
+        // Reset error message styling
+        const errorElement = document.getElementById('file_input_error');
+        errorElement.classList.add('hidden');
+        errorElement.classList.remove('text-blue-600');
+        errorElement.classList.add('text-red-600');
 
         if (file) {
             // Check file type
             const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
             const fileType = file.type;
-
-            // Check file size (5MB = 5 * 1024 * 1024 bytes)
-            const maxSize = 5 * 1024 * 1024;
             const fileSize = file.size;
 
             // Validate file type
@@ -214,15 +253,64 @@
                 return;
             }
 
-            // Validate file size
-            if (fileSize > maxSize) {
-                showError('file_input', 'Ukuran file terlalu besar. Maksimal 5MB.');
-                fileInput.value = '';
-                return;
+            // Compress if file size is over 1MB
+            const compressThreshold = 1 * 1024 * 1024; // 1MB
+            if (fileSize > compressThreshold) {
+                try {
+                    // Show compression message
+                    const errorElement = document.getElementById('file_input_error');
+                    errorElement.classList.remove('hidden', 'text-red-600');
+                    errorElement.classList.add('text-blue-600');
+                    errorElement.textContent = 'Mengkompress gambar...';
+                    
+                    // Determine compression quality based on file size
+                    let quality = 0.8;
+                    if (fileSize > 10 * 1024 * 1024) { // > 10MB
+                        quality = 0.5;
+                    } else if (fileSize > 5 * 1024 * 1024) { // > 5MB
+                        quality = 0.6;
+                    } else if (fileSize > 3 * 1024 * 1024) { // > 3MB
+                        quality = 0.7;
+                    }
+                    
+                    const compressedFile = await compressImage(file, undefined, quality);
+                    
+                    // Create a new File object with compressed data
+                    const compressedFileObj = new File([compressedFile], file.name, {
+                        type: 'image/jpeg',
+                        lastModified: Date.now()
+                    });
+                    
+                    // Replace the file in the input
+                    const dt = new DataTransfer();
+                    dt.items.add(compressedFileObj);
+                    fileInput.files = dt.files;
+                    
+                    // Check if compressed file is still > 2MB and show warning
+                    const compressedSize = compressedFile.size;
+                    const warningThreshold = 2 * 1024 * 1024; // 2MB
+                    
+                    if (compressedSize > warningThreshold) {
+                        // Show warning but allow upload
+                        errorElement.classList.remove('text-blue-600');
+                        errorElement.classList.add('text-yellow-600');
+                        errorElement.textContent = `⚠️ Gambar dikompress dari ${(fileSize/1024/1024).toFixed(2)}MB menjadi ${(compressedSize/1024/1024).toFixed(2)}MB. File masih cukup besar, upload mungkin memerlukan waktu lebih lama.`;
+                    } else {
+                        // Show success message
+                        errorElement.textContent = `✅ Gambar berhasil dikompress dari ${(fileSize/1024/1024).toFixed(2)}MB menjadi ${(compressedSize/1024/1024).toFixed(2)}MB`;
+                    }
+                    
+                    showSuccess('file_input');
+                } catch (error) {
+                    console.error('Compression error:', error);
+                    showError('file_input', 'Gagal mengkompress gambar. Silakan coba file lain.');
+                    fileInput.value = '';
+                    return;
+                }
+            } else {
+                // File is valid and doesn't need compression
+                showSuccess('file_input');
             }
-
-            // File is valid
-            showSuccess('file_input');
         }
     });
 
@@ -364,9 +452,12 @@
             showError('file_input', 'Bukti gambar harus diupload');
             isValid = false;
         } else {
-            // Check if there's any file error
+            // Check if there's any file error (but ignore compression success message and warnings)
             const fileError = document.getElementById('file_input_error');
-            if (!fileError.classList.contains('hidden')) {
+            if (!fileError.classList.contains('hidden') && 
+                fileError.classList.contains('text-red-600') && 
+                !fileError.classList.contains('text-blue-600') &&
+                !fileError.classList.contains('text-yellow-600')) {
                 isValid = false;
             } else {
                 showSuccess('file_input');

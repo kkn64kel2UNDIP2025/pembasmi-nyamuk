@@ -52,8 +52,6 @@ class ReportController extends BaseController
     {
         $file = $this->request->getFile('evidence_image');
 
-        dd($file);
-
         $fileContent = file_get_contents($file->getTempName());
         $fileName = $file->getRandomName();
 
