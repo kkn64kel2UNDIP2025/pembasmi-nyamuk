@@ -11,28 +11,28 @@
                         <form class="mt-6" id="report-form" enctype="multipart/form-data" action="<?= base_url('pelaporan/laporan-baru') ?>" method="POST">
                             <div class="grid gap-6 mb-6 md:grid-cols-2">
                                 <div>
-                                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Pelapor</label>
-                                    <input name="name" type="text" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Masukkan nama" />
-                                    <p id="name_error" class="hidden mt-2 text-xs text-red-600 dark:text-red-400">Nama pelapor harus diisi</p>
+                                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Nama Pelapor</label>
+                                    <input name="name" type="text" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Masukkan nama" />
+                                    <p id="name_error" class="hidden mt-2 text-xs text-red-600">Nama pelapor harus diisi</p>
                                 </div>
                                 <div>
-                                    <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomor Telepon</label>
-                                    <input type="tel" id="phone" name="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="08xxxxxxxxxx" />
-                                    <p id="phone_error" class="hidden mt-2 text-xs text-red-600 dark:text-red-400"></p>
+                                    <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Nomor Telepon</label>
+                                    <input type="tel" id="phone" name="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="08xxxxxxxxxx" />
+                                    <p id="phone_error" class="hidden mt-2 text-xs text-red-600"></p>
                                 </div>
                                 <div>
-                                    <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kategori</label>
-                                    <select id="category" name="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <label for="category" class="block mb-2 text-sm font-medium text-gray-900">Kategori</label>
+                                    <select id="category" name="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                                         <option value="">-- Pilih Kategori --</option>
                                         <?php foreach ($categories as $category) : ?>
                                             <option value="<?= $category['id'] ?>"><?= $category['category_name'] ?></option>
                                         <?php endforeach ?>
                                     </select>
-                                    <p id="category_error" class="hidden mt-2 text-xs text-red-600 dark:text-red-400">Kategori harus dipilih</p>
+                                    <p id="category_error" class="hidden mt-2 text-xs text-red-600">Kategori harus dipilih</p>
                                 </div>
                                 <div>
-                                    <label for="level" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Level</label>
-                                    <select id="level" name="level" class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-600 dark:text-white cursor-not-allowed" disabled>
+                                    <label for="level" class="block mb-2 text-sm font-medium text-gray-900">Level</label>
+                                    <select id="level" name="level" class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 cursor-not-allowed" disabled>
                                         <option value="">Pilih kategori terlebih dahulu</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -40,33 +40,33 @@
                                         <option value="4">4</option>
                                         <option value="5">5</option>
                                     </select>
-                                    <p id="level_error" class="hidden mt-2 text-xs text-red-600 dark:text-red-400">Level harus dipilih</p>
+                                    <p id="level_error" class="hidden mt-2 text-xs text-red-600">Level harus dipilih</p>
                                 </div>
                                 <div class="md:col-span-2">
-                                    <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Deskripsi</label>
-                                    <textarea id="description" name="description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Keterangan tambahan"></textarea>
+                                    <label for="description" class="block mb-2 text-sm font-medium text-gray-900">Deskripsi</label>
+                                    <textarea id="description" name="description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Keterangan tambahan"></textarea>
                                 </div>
                                 <div class="md:col-span-2">
-                                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Lokasi Pelaporan</label>
+                                    <label class="block mb-2 text-sm font-medium text-gray-900">Lokasi Pelaporan</label>
                                     <div id="map" class="h-96 z-5"></div>
                                     <!-- Hidden inputs untuk menyimpan koordinat -->
                                     <input type="hidden" id="latitude" name="latitude" value="-6.962060" />
                                     <input type="hidden" id="longitude" name="longitude" value="110.44539" />
                                 </div>
                                 <div class="md:col-span-2">
-                                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Bukti Gambar</label>
-                                    <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                    <label class="block mb-2 text-sm font-medium text-gray-900" for="file_input">Bukti Gambar</label>
+                                    <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50"
                                         aria-describedby="file_input_help"
                                         id="file_input"
                                         name="evidence_image"
                                         type="file"
                                         accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
                                         >
-                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">Hanya file gambar (PNG, JPG, JPEG, GIF, WebP). Maksimal 5MB.</p>
-                                    <p id="file_input_error" class="hidden mt-2 text-xs text-red-600 dark:text-red-500"></p>
+                                    <p class="mt-1 text-sm text-gray-500" id="file_input_help">Hanya file gambar (PNG, JPG, JPEG, GIF, WebP). Maksimal 5MB.</p>
+                                    <p id="file_input_error" class="hidden mt-2 text-xs text-red-600"></p>
                                 </div>
                             </div>
-                            <button type="submit" class="w-full mt-5 text-md text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            <button type="submit" class="w-full mt-5 text-md text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg py-2 text-center">
                                 Kirim Laporan
                             </button>
                         </form>
@@ -232,12 +232,12 @@
     // OSN Layer
     var CyclOSM = L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
         maxZoom: 20,
-        minZoom: 19,
+        minZoom: 18,
         attribution: '<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     });
 
     CyclOSM.addTo(map);
-    map.setView([-6.962060, 110.44539], 19);
+    map.setView([-6.962060, 110.44539], 18);
 
     // Marker
     const icon = L.icon({

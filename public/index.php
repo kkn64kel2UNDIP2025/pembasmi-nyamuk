@@ -57,9 +57,3 @@ $paths = new Paths();
 require $paths->systemDirectory . '/Boot.php';
 
 exit(Boot::bootWeb($paths));
-
-file_put_contents('/tmp/ci4-debug.txt', 'Masuk ke index.php'.PHP_EOL, FILE_APPEND);
-require_once '../vendor/autoload.php';
-$app = require_once '../app/Config/Boot/production.php';
-$kernel = new CodeIgniter\CodeIgniter();
-$kernel->run();
