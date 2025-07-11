@@ -29,7 +29,32 @@ class ReportController extends BaseController
 
     public function LaporanBaru()
     {
+        // Add additional validation for mobile uploads
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'evidence_image' => [
+                'label' => 'Bukti Foto',
+                'rules' => 'uploaded[evidence_image]|is_image[evidence_image]|max_size[evidence_image,5120]',
+                'errors' => [
+                    'uploaded' => 'Bukti foto harus diunggah.',
+                    'is_image' => 'File harus berupa gambar.',
+                    'max_size' => 'Ukuran file maksimal 5MB.'
+                ]
+            ]
+        ]);
+
+        if (!$validation->withRequest($this->request)->run()) {
+            session()->setFlashdata('error', implode(' ', $validation->getErrors()));
+            return redirect()->back()->withInput();
+        }
+
         $resultUpload = $this->uploadImage();
+
+        // If image upload failed, return with error
+        if ($resultUpload['status'] === 'error') {
+            session()->setFlashdata('error', $resultUpload['message']);
+            return redirect()->back()->withInput();
+        }
 
         $data = [
             'name' => $this->request->getVar('name'),
@@ -43,8 +68,14 @@ class ReportController extends BaseController
             'resolve_at' => null,
         ];
 
-        $this->locationsModel->insert($data);
-        session()->setFlashdata($resultUpload['status'], $resultUpload['message']);
+        try {
+            $this->locationsModel->insert($data);
+            session()->setFlashdata('success', $resultUpload['message']);
+        } catch (\Exception $e) {
+            log_message('error', 'Database insert failed: ' . $e->getMessage());
+            session()->setFlashdata('error', 'Gagal menyimpan laporan. Silakan coba lagi.');
+        }
+        
         return redirect()->back();
     }
 
@@ -52,7 +83,98 @@ class ReportController extends BaseController
     {
         $file = $this->request->getFile('evidence_image');
 
-        $fileContent = file_get_contents($file->getTempName());
+        // Validate file upload
+        if (!$file || !$file->isValid()) {
+            return [
+                'fileName' => null,
+                'status' => 'error',
+                'message' => 'File tidak valid atau gagal diunggah.'
+            ];
+        }
+
+        // Check if file has been uploaded properly
+        if (!$file->hasMoved() && $file->getError() !== UPLOAD_ERR_OK) {
+            $errorMessages = [
+                UPLOAD_ERR_INI_SIZE => 'File terlalu besar (melebihi upload_max_filesize)',
+                UPLOAD_ERR_FORM_SIZE => 'File terlalu besar (melebihi MAX_FILE_SIZE)',
+                UPLOAD_ERR_PARTIAL => 'File hanya terupload sebagian',
+                UPLOAD_ERR_NO_FILE => 'Tidak ada file yang diupload',
+                UPLOAD_ERR_NO_TMP_DIR => 'Folder temporary tidak ditemukan',
+                UPLOAD_ERR_CANT_WRITE => 'Gagal menulis file ke disk',
+                UPLOAD_ERR_EXTENSION => 'Upload dihentikan oleh ekstensi PHP'
+            ];
+            
+            $errorMessage = $errorMessages[$file->getError()] ?? 'Upload error: ' . $file->getError();
+            log_message('error', 'File upload error: ' . $errorMessage);
+            
+            return [
+                'fileName' => null,
+                'status' => 'error',
+                'message' => $errorMessage
+            ];
+        }
+
+        // Get temp file path and validate it exists
+        $tempPath = $file->getTempName();
+        if (empty($tempPath) || !file_exists($tempPath)) {
+            // Log for debugging
+            log_message('error', 'File upload issue - TempPath: ' . ($tempPath ?: 'empty') . ', File exists: ' . (file_exists($tempPath) ? 'yes' : 'no'));
+            log_message('error', 'File details - Name: ' . $file->getName() . ', Size: ' . $file->getSize() . ', Error: ' . $file->getError());
+            
+            return [
+                'fileName' => null,
+                'status' => 'error',
+                'message' => 'File temporary tidak ditemukan. Silakan coba lagi.'
+            ];
+        }
+
+        // Validate file size (max 5MB)
+        if ($file->getSize() > 5 * 1024 * 1024) {
+            return [
+                'fileName' => null,
+                'status' => 'error',
+                'message' => 'Ukuran file terlalu besar. Maksimal 5MB.'
+            ];
+        }
+
+        // Validate file type
+        $allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+        if (!in_array($file->getMimeType(), $allowedTypes)) {
+            return [
+                'fileName' => null,
+                'status' => 'error',
+                'message' => 'Tipe file tidak didukung. Gunakan JPG, PNG, atau GIF.'
+            ];
+        }
+
+        $fileContent = file_get_contents($tempPath);
+        if ($fileContent === false) {
+            // Try alternative method for mobile devices
+            try {
+                // Alternative approach: move file first then read
+                $uploadDir = WRITEPATH . 'uploads/';
+                if (!is_dir($uploadDir)) {
+                    mkdir($uploadDir, 0755, true);
+                }
+                
+                $targetPath = $uploadDir . 'temp_' . uniqid();
+                if ($file->move(dirname($targetPath), basename($targetPath))) {
+                    $fileContent = file_get_contents($targetPath);
+                    unlink($targetPath); // Clean up temporary file
+                }
+            } catch (\Exception $e) {
+                log_message('error', 'Failed to read file with alternative method: ' . $e->getMessage());
+            }
+            
+            if (!$fileContent) {
+                return [
+                    'fileName' => null,
+                    'status' => 'error',
+                    'message' => 'Gagal membaca file. Silakan coba lagi.'
+                ];
+            }
+        }
+
         $fileName = $file->getRandomName();
 
         $bucket = 'pelaporan';
@@ -85,5 +207,27 @@ class ReportController extends BaseController
         ];
     }
 
+    /**
+     * Debug method to check PHP upload settings
+     * Can be accessed via /pelaporan/debug-upload (for testing purposes only)
+     */
+    public function debugUpload()
+    {
+        if (ENVIRONMENT !== 'development') {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException();
+        }
 
+        $settings = [
+            'upload_max_filesize' => ini_get('upload_max_filesize'),
+            'post_max_size' => ini_get('post_max_size'),
+            'max_file_uploads' => ini_get('max_file_uploads'),
+            'file_uploads' => ini_get('file_uploads') ? 'enabled' : 'disabled',
+            'upload_tmp_dir' => ini_get('upload_tmp_dir') ?: 'default',
+            'max_execution_time' => ini_get('max_execution_time'),
+            'memory_limit' => ini_get('memory_limit'),
+            'writable_uploads_dir' => is_writable(WRITEPATH . 'uploads/') ? 'writable' : 'not writable'
+        ];
+
+        return $this->response->setJSON($settings);
+    }
 }
