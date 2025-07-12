@@ -7,7 +7,7 @@
             <div class="row shadow-md card card-body">
                 <h5 class="text-gray-900 text-2xl font-semibold mb-6">Pemantauan Potensi Perkembangan Nyamuk</h5>
                 <!-- Statistics Panel -->
-                <div id="statistics" class="mb-6 hidden">
+                <div id="statistics" class="mb-6">
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                         <div class="card card-body bg-blue-50 border border-blue-200 p-4">
                             <div class="flex items-center">
@@ -114,30 +114,30 @@
 
     CyclOSM.addTo(map);
 
-    // Locate user
-    map.locate({
-      setView: false,
-      maxZoom: 18,
-      enableHighAccuracy: true,
-      timeout: 10000
-    });
+    // Locate user 
+    // map.locate({
+    //   setView: false,
+    //   maxZoom: 18,
+    //   enableHighAccuracy: true,
+    //   timeout: 10000
+    // });
 
-    // User Location
-    map.on('locationfound', function (e) {
-      const accuracy = e.accuracy;
-      const latlng = e.latlng;
+    // // User Location
+    // map.on('locationfound', function (e) {
+    //   const accuracy = e.accuracy;
+    //   const latlng = e.latlng;
 
-      if (accuracy <= 25) {
-        // Tambahkan lingkaran biru
-        L.circle(latlng, {
-          radius: accuracy,
-          color: 'blue',
-          fillColor: 'blue',
-          fillOpacity: 0.3
-        }).addTo(map);
+    //   if (accuracy <= 25) {
+    //     // Tambahkan lingkaran biru
+    //     L.circle(latlng, {
+    //       radius: accuracy,
+    //       color: 'blue',
+    //       fillColor: 'blue',
+    //       fillOpacity: 0.3
+    //     }).addTo(map);
 
-      }
-    });
+    //   }
+    // });
 
     // Create icons for different levels and status
     let icons = {};
@@ -290,11 +290,6 @@
     document.getElementById('resolved-count').textContent = resolvedCount;
     document.getElementById('false-count').textContent = falseReportCount;
 
-    // Show statistics panel if there are any locations
-    if (totalMarkers > 0) {
-        document.getElementById('statistics').classList.remove('hidden');
-    }
-
     // Auto-fit map to show all markers if there are any
     if (locations.length > 0) {
         const group = new L.featureGroup();
@@ -375,13 +370,13 @@
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-900 mb-1">Tanggal Dilaporkan</label>
+                            <label class="block text-sm font-medium text-gray-900 mb-1">Dilaporkan pada</label>
                             <p class="text-gray-700">${new Date(location.reported_at).toLocaleString('id-ID')}</p>
                         </div>
                         
                         ${location.resolve_at ? `
                         <div>
-                            <label class="block text-sm font-medium text-gray-900 mb-1">Tanggal Diselesaikan</label>
+                            <label class="block text-sm font-medium text-gray-900 mb-1">Diselesaikan pada</label>
                             <p class="text-gray-700">${new Date(location.resolve_at).toLocaleString('id-ID')}</p>
                         </div>` : ''}
                     </div>

@@ -34,11 +34,11 @@
                                     <label for="level" class="block mb-2 text-sm font-medium text-gray-900">Level</label>
                                     <select id="level" name="level" class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 cursor-not-allowed" disabled>
                                         <option value="">Pilih kategori terlebih dahulu</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
+                                        <option value="1">1 - Sanget Rendah</option>
+                                        <option value="2">2 - Rendah</option>
+                                        <option value="3">3 - Sedang</option>
+                                        <option value="4">4 - Tinggi</option>
+                                        <option value="5">5 - Sangat Tinggi</option>
                                     </select>
                                     <p id="level_error" class="hidden mt-2 text-xs text-red-600">Level harus dipilih</p>
                                 </div>
@@ -340,33 +340,33 @@
     });
 
     setLocation.addTo(map);
-    setLocation.bindPopup("Geser / klik untuk memindahkan lokasi", {
+    setLocation.bindPopup("Geser ikon / klik lokasi untuk memindahkan", {
         offset: L.point(0, -15)
     }).openPopup();
 
     // Locate user
-    map.locate({
-      setView: false,
-      maxZoom: 18,
-      enableHighAccuracy: true,
-      timeout: 10000
-    });
+    // map.locate({
+    //   setView: false,
+    //   maxZoom: 18,
+    //   enableHighAccuracy: true,
+    //   timeout: 10000
+    // });
 
-    map.on('locationfound', function (e) {
-      const accuracy = e.accuracy;
-      const latlng = e.latlng;
+    // map.on('locationfound', function (e) {
+    //   const accuracy = e.accuracy;
+    //   const latlng = e.latlng;
 
-      if (accuracy <= 25) {
-        // Tambahkan lingkaran biru
-        L.circle(latlng, {
-          radius: accuracy,
-          color: 'blue',
-          fillColor: 'blue',
-          fillOpacity: 0.3
-        }).addTo(map);
+    //   if (accuracy <= 25) {
+    //     // Tambahkan lingkaran biru
+    //     L.circle(latlng, {
+    //       radius: accuracy,
+    //       color: 'blue',
+    //       fillColor: 'blue',
+    //       fillOpacity: 0.3
+    //     }).addTo(map);
 
-      }
-    });
+    //   }
+    // });
 
     // Function to update coordinates
     function updateCoordinates(lat, lng) {
