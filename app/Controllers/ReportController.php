@@ -20,7 +20,7 @@ class ReportController extends BaseController
     public function index()
     {
         $data = [
-            'title' => 'Pelaporan Lokasi | Pembasmi Nyamuk',
+            'title' => 'Pelaporan Lokasi | Si Jempang',
             'categories' => $this->categoriesModel->findAll()
         ];
 

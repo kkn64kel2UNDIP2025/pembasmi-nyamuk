@@ -10,8 +10,8 @@
                 src="<?= base_url('Ikon-Anti-Nyamuk.png') ?>"
                 alt="Logo Anti Nyamuk" />
             <div class="font-bold text-2xl">
-                <span class="block">Pembasmi</span>
-                <span class="text-blue-900">Nyamuk</span>
+                <span class="block">SI</span>
+                <span class="text-blue-900">JEMPANG</span>
             </div>
         </a>
 

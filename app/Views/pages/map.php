@@ -376,7 +376,7 @@
                         
                         ${location.resolve_at ? `
                         <div>
-                            <label class="block text-sm font-medium text-gray-900 mb-1">Diselesaikan pada</label>
+                            <label class="block text-sm font-medium text-gray-900 mb-1">${location.status=='terselesaikan' ? 'Diselesaikan pada' : 'Dinyatakan palsu pada'}</label>
                             <p class="text-gray-700">${new Date(location.resolve_at).toLocaleString('id-ID')}</p>
                         </div>` : ''}
                     </div>
