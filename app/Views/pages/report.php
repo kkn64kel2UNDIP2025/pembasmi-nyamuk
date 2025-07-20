@@ -317,14 +317,30 @@
     // Map Initialization
     var map = L.map('map')
 
-    // OSN Layer
-    var CyclOSM = L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
-        maxZoom: 20,
-        minZoom: 18,
-        attribution: '<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    });
+    // CyclOSM Map Layer
+    // var CyclOSM = L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
+    //     maxZoom: 20,
+    //     minZoom: 18,
+    //     attribution: '<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    // });
 
-    CyclOSM.addTo(map);
+    var osmDefault = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            minZoom: 18,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        });
+
+    osmDefault.addTo(map);
+
+    // CyclOSM.on('tileerror', function(error) {
+    //     console.warn('CyclOSM tile gagal dimuat, fallback ke OSM Default', error);
+    //     // OSM Default Layer
+        
+        
+    //     map.removeLayer(CyclOSM);
+    //     osmDefault.addTo(map);
+    // });
+
     map.setView([-6.962060, 110.44539], 18);
 
     // Marker

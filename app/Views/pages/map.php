@@ -98,21 +98,44 @@
     </div>
 </div>
 
+<script src="<?= base_url('assets/js/leaflet.js') ?>"></script>
 <script>
     const locations = <?= json_encode($locations) ?>;
 
     // Map Initialization
     var map = L.map('map');
-    map.setView([-6.962060, 110.44539], 18);
 
-    // Cycl Map Layer
-    var CyclOSM = L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
-        maxZoom: 20,
+    // OSM Default Layer
+    var osmDefault = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
         minZoom: 18,
-        attribution: '<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     });
 
-    CyclOSM.addTo(map);
+    // CyclOSM Map Layer
+    // var CyclOSM = L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
+    //     maxZoom: 20,
+    //     minZoom: 18,
+    //     attribution: '<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    // });
+
+    osmDefault.addTo(map);
+
+    // let cycloErrorCount = 0;
+    // let maxErrorBeforeFallback = 5; // fallback kalau >5 error
+
+    // CyclOSM.on('tileerror', function(e) {
+    //     cycloErrorCount++;
+    //     if (cycloErrorCount >= maxErrorBeforeFallback) {
+    //         console.warn('Terlalu banyak error CyclOSM, fallback ke OSM');
+    //         if (!map.hasLayer(osmDefault)) {
+    //             map.removeLayer(CyclOSM);
+    //             osmDefault.addTo(map);
+    //         }
+    //     }
+    // });
+
+    map.setView([-6.962060, 110.44539], 18);
 
     // Locate user 
     // map.locate({
