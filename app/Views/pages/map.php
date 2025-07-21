@@ -100,6 +100,18 @@
 
 <script src="<?= base_url('assets/js/leaflet.js') ?>"></script>
 <script>
+    const toLocalDate = (date, options = {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+        }) => {
+        
+        const indDate = new Date(date);
+        return indDate.toLocaleDateString("id-ID", options);
+    }
+
     const locations = <?= json_encode($locations) ?>;
 
     // Map Initialization
@@ -217,6 +229,13 @@
     });
 
     // Add markers to appropriate layer groups
+    // Format options for popup date
+    const optionsForPopup = {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+        };
+
     locations.forEach(location => {
         const status = location.status;
         const level = location.level;
@@ -257,12 +276,12 @@
                         </div>
                         <div class="flex gap-1">
                             <span class="font-semibold w-20 flex-shrink-0">Dilaporkan:</span>
-                            <span>${new Date(location.reported_at).toLocaleString('id-ID')}</span>
+                            <span>${toLocalDate(location.reported_at, optionsForPopup)}</span>
                         </div>
                         ${location.resolve_at ? `
                         <div class="flex gap-1">
                             <span class="font-semibold w-20 flex-shrink-0">Diselesaikan:</span>
-                            <span>${new Date(location.resolve_at).toLocaleString('id-ID')}</span>
+                            <span>${toLocalDate(location.resolve_at, optionsForPopup)}</span>
                         </div>` : ''}
                     </div>
                     <div class="mt-3 pt-3 border-t border-gray-200 flex justify-center">
@@ -394,13 +413,13 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-900 mb-1">Dilaporkan pada</label>
-                            <p class="text-gray-700">${new Date(location.reported_at).toLocaleString('id-ID')}</p>
+                            <p class="text-gray-700">${toLocalDate(location.reported_at)}</p>
                         </div>
                         
                         ${location.resolve_at ? `
                         <div>
                             <label class="block text-sm font-medium text-gray-900 mb-1">${location.status=='terselesaikan' ? 'Diselesaikan pada' : 'Dinyatakan palsu pada'}</label>
-                            <p class="text-gray-700">${new Date(location.resolve_at).toLocaleString('id-ID')}</p>
+                            <p class="text-gray-700">${toLocalDate(location.resolve_at)}</p>
                         </div>` : ''}
                     </div>
                     ${location.evidence_image ? `
