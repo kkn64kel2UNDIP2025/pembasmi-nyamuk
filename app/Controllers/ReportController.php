@@ -29,8 +29,72 @@ class ReportController extends BaseController
 
     public function LaporanBaru()
     {
+        // Validasi input
+        $validation = [
+            'name' => [
+                'rules' => 'required|max_length[75]',
+                'errors' => [
+                    'required' => 'Nama pelapor harus diisi.',
+                    'max_length' => 'Nama pelapor maksimal 75 karakter.'
+                ]
+            ],
+            'phone' => [
+                'rules' => 'permit_empty|regex_match[/^[0-9]{10,15}$/]',
+                'errors' => [
+                    'regex_match' => 'Nomor telepon tidak valid.'
+                ]
+            ],
+            'latitude' => [
+                'rules' => 'required|decimal',
+                'errors' => [
+                    'required' => 'Latitude harus diisi.',
+                    'decimal' => 'Latitude harus berupa angka desimal.'
+                ]
+            ],
+            'longitude' => [
+                'rules' => 'required|decimal',
+                'errors' => [
+                    'required' => 'Longitude harus diisi.',
+                    'decimal' => 'Longitude harus berupa angka desimal.'
+                ]
+            ],
+            'category' => [
+                'rules' => 'required|is_not_unique[categories.id]',
+                'errors' => [
+                    'required' => 'Kategori harus dipilih.',
+                    'is_not_unique' => 'Kategori tidak valid.'
+                ]
+            ],
+            'level' => [
+                'rules' => 'required|in_list[1,2,3]',
+                'errors' => [
+                    'required' => 'Level harus dipilih.',
+                    'in_list' => 'Level tidak valid.'
+                ]
+            ],
+            'description' => [
+                'rules' => 'permit_empty|max_length[500]',
+                'errors' => [
+                    'max_length' => 'Deskripsi maksimal 500 karakter.'
+                ]
+            ],
+            'evidence_image' => [
+                'rules' => 'uploaded[evidence_image]|is_image[evidence_image]|max_size[evidence_image,1024]',
+                'errors' => [
+                    'uploaded' => 'Gambar bukti harus diunggah.',
+                    'is_image' => 'File yang diunggah harus berupa gambar.',
+                    'max_size' => 'Ukuran gambar tidak boleh lebih dari 1MB.'
+                ]
+            ]
+        ];
+
+        if (!$this->validate($validation)) {
+            return redirect()->back()->withInput()->with('val_errors', $this->validator->getErrors());
+        }
+        
         $resultUpload = $this->uploadImage();
 
+        // Ambil data dari input
         $data = [
             'name' => $this->request->getVar('name'),
             'phone' => $this->request->getVar('phone'),
