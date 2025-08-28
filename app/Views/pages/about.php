@@ -23,12 +23,13 @@
                 <h5 class="text-gray-900 text-xl font-semibold mb-3 mt-6">Cara Penggunaan</h5>
                 <p class="mb-2">Ketika Anda ingin melaporkan tempat atau lokasi yang menjadi potensi jentik nyamuk, ikuti langkah-langkah berikut</p>
                 <ol class="list-decimal list-inside">
-                    <li>Buka halaman pelaporan dengan menekan pelaporan di bagian samping (sidebar)</li>
+                    <li>Buka halaman pelaporan dengan menekan Pelaporan di bagian samping (sidebar)</li>
                     <li>Isi semua data yang diperlukan terutama lokasi pelaporan dan bukti gambar</li>
                     <li>Untuk mengisi lokasi pelaporan, pelapor dapat menggeser atau menekan lokasi yang akan dilaporkan</li>
                     <li>Bukti gambar dapat diunggah, baik dengan upload file atau memfoto secara langsung</li>
                     <li>Jika sudah, kirim laporan dengan menekan tombol kirim laporan di halaman paling bawah</li>
                     <li>Setelah itu, lokasi pelaporan akan dapat dilihat oleh seluruh pengguna</li>
+                    <li>Untuk melihat hasilnya, dapat dilakukan di halaman pemantauan dengan menekan Pemantauan di bagian samping (sidebar)</li>
                     <li>Untuk melihat keterangan dari lokasi, dapat dengan langsung menekan ikonnya</li>
                     <li>Kemudian, jika ingin mengetahui detail secara lebih lanjut dapat menekan tombol lihat detail</li>
                     <li>Setelah itu, keseluruhan detail akan tampil</li>
