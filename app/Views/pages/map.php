@@ -67,7 +67,6 @@
         </div>
     </div>
     </div>
-    <?= $this->include('layout/footer') ?>
     </div>
 </main>
 
@@ -101,13 +100,13 @@
 <script src="<?= base_url('assets/js/leaflet.js') ?>"></script>
 <script>
     const toLocalDate = (date, options = {
-            day: "numeric",
-            month: "long",
-            year: "numeric",
-            hour: "2-digit",
-            minute: "2-digit"
-        }) => {
-        
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+    }) => {
+
         const indDate = new Date(date);
         return indDate.toLocaleDateString("id-ID", options);
     }
@@ -231,10 +230,10 @@
     // Add markers to appropriate layer groups
     // Format options for popup date
     const optionsForPopup = {
-            day: "numeric",
-            month: "long",
-            year: "numeric",
-        };
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+    };
 
     locations.forEach(location => {
         const status = location.status;

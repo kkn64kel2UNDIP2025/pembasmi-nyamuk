@@ -10,3 +10,5 @@ $routes->post('/peta/update', 'MapController::UpdateStatus');
 
 $routes->get('/pelaporan', 'ReportController::index');
 $routes->post('/pelaporan/laporan-baru', 'ReportController::LaporanBaru');
+
+$routes->get('/tentang', 'AboutController::index');

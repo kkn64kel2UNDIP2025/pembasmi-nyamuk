@@ -37,8 +37,16 @@
                         </div>
                     </a>
                 </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center justify-between relative rounded-md text-gray-900 w-full"
+                        href="<?= base_url('tentang') ?>">
+                        <div class="flex items-center gap-2">
+                            <i class="ti ti-layout-2 ps-2 text-2xl"></i> <span>Tentang</span>
+                        </div>
+                    </a>
+                </li>
             </ul>
         </nav>
-</div>
+    </div>
 
 </aside>
