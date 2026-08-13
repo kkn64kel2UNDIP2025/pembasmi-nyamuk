@@ -35,6 +35,13 @@ Melalui digitalisasi proses pelaporan dan pemantauan, SI JEMPANG juga mendorong 
   <img width="75%" alt="Detail Laporan" src="https://github.com/user-attachments/assets/a46342f7-2c8e-4227-9087-ab76213efede" />
 </p>
 
+## 🛠️ Teknologi
+| Teknologi | Description |
+|---|---|
+| CodeIgniter 4 | Backend Framework |
+| Tailwind CSS 4 | CSS Framework |
+| Supabase | Database Service |
+| Leaflet.js | Interactive Map Library |
 
 
 ## 📖 Cara Penggunaan
