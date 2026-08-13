@@ -1,68 +1,57 @@
-# CodeIgniter 4 Application Starter
+# 🦟 SI JEMPANG
 
-## What is CodeIgniter?
+**SI JEMPANG** adalah aplikasi berbasis web yang dirancang untuk memudahkan pencatatan dan pengelolaan data perkembangan jentik nyamuk secara digital dan sistematis.
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+Aplikasi ini mendukung proses pelaporan lokasi yang berpotensi menjadi tempat berkembangnya jentik nyamuk, pemantauan laporan melalui peta, serta penyajian informasi yang dapat membantu pengambilan keputusan dalam upaya pemberantasan sarang nyamuk dan pencegahan penyakit seperti **Demam Berdarah Dengue (DBD)**.
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+Melalui digitalisasi proses pelaporan dan pemantauan, SI JEMPANG juga mendorong partisipasi masyarakat dalam pengendalian sarang nyamuk secara lebih efektif dan efisien.
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+## ✨ Fitur Utama
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+* 📝 **Pelaporan Lokasi**
+  Pengguna dapat melaporkan lokasi yang berpotensi menjadi tempat berkembangnya jentik nyamuk.
+<p align="center">  
+  <img width="75%" alt="Pemantauan Lokasi" src="https://github.com/user-attachments/assets/2fa3d5b1-7649-4a01-afd7-25b15ad2eef9" />
+</p>
 
-## Installation & updates
+* 📍 **Pemilihan Lokasi melalui Peta**
+  Lokasi pelaporan dapat dipilih secara langsung dengan menekan atau menggeser penanda pada peta.
+* 📷 **Unggah Bukti Gambar**
+  Pengguna dapat mengunggah gambar dari perangkat atau mengambil foto secara langsung sebagai bukti pelaporan.
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+<p align="center">  
+  <img width="75%" alt="Pemilihan Lokasi dan Unggah Bukti Foto" src="https://github.com/user-attachments/assets/53c9708c-5a8f-40f3-b2b9-0e7c371e6450" />
+</p>
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+* 🗺️ **Pemantauan Lokasi**
+  Seluruh laporan yang telah dikirim dapat dipantau melalui halaman pemantauan berbasis peta.
+<p align="center">  
+  <img width="75%" alt="Pemantauan Lokasi" src="https://github.com/user-attachments/assets/fed65d88-4eff-467d-a0b6-791678947cd7" />
+</p>
 
-## Setup
+* 🔍 **Detail Laporan**
+  Pengguna dapat melihat informasi dan detail lengkap dari setiap lokasi yang telah dilaporkan.
+<p align="center">  
+  <img width="75%" alt="Detail Laporan" src="https://github.com/user-attachments/assets/a46342f7-2c8e-4227-9087-ab76213efede" />
+</p>
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
 
-## Important Change with index.php
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+## 📖 Cara Penggunaan
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+Ketika ingin melaporkan tempat atau lokasi yang berpotensi menjadi sarang jentik nyamuk, ikuti langkah-langkah berikut:
 
-**Please** read the user guide for a better explanation of how CI4 works!
+1. Buka halaman **Pelaporan** melalui menu pada bagian samping (*sidebar*).
+2. Isi seluruh data yang diperlukan, terutama informasi lokasi pelaporan dan bukti gambar.
+3. Untuk menentukan lokasi, pengguna dapat menekan atau menggeser penanda pada peta ke lokasi yang ingin dilaporkan.
+4. Unggah bukti gambar melalui file dari perangkat atau ambil foto secara langsung.
+5. Setelah seluruh data terisi, tekan tombol **Kirim Laporan** yang tersedia di bagian bawah halaman.
+6. Setelah laporan berhasil dikirim, lokasi tersebut akan dapat dilihat oleh pengguna lain.
+7. Untuk melihat seluruh laporan, buka halaman **Pemantauan** melalui menu *sidebar*.
+8. Tekan ikon lokasi pada peta untuk melihat informasi singkat mengenai laporan.
+9. Untuk melihat informasi lebih lengkap, tekan tombol **Lihat Detail**.
+10. Detail lengkap dari laporan akan ditampilkan dalam sebuah *modal*.
 
-## Repository Management
+## 🎯 Tujuan
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
-
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
-
-## Server Requirements
-
-PHP version 8.1 or higher is required, with the following extensions installed:
-
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
-
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
-> - The end of life date for PHP 8.1 will be December 31, 2025.
-
-Additionally, make sure that the following extensions are enabled in your PHP:
-
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+SI JEMPANG dikembangkan untuk membantu proses pencatatan dan pemantauan potensi perkembangbiakan jentik nyamuk secara digital. Data yang terkumpul diharapkan dapat mendukung kegiatan pemberantasan sarang nyamuk, meningkatkan partisipasi masyarakat, serta membantu mengurangi risiko penyebaran penyakit **Demam Berdarah Dengue (DBD)**.
